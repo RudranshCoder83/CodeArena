@@ -1,57 +1,24 @@
-import mongoose, { Document, Schema } from "mongoose";
+import {Document, model, Schema} from "mongoose";
 
-export interface IUser extends Document {
-  googleId?: string;
-  fullName: string;
-  email: string;
-  passwordHash?: string;
-  avatarUrl?: string;
-  createdAt: Date;
-  updatedAt: Date;
+export interface IUser extends Document{
+  username: string,
+  password?: string,
+  email: string,
+  createdAt: Date,
+  updatedAt: Date,
 }
 
-const userSchema = new Schema<IUser>(
-  {
-    googleId: {
-      type: String,
-      unique: true,
-      sparse: true,
-    },
+const UserSchema = new Schema<IUser>({
+  username: {type: String, required: true, trim: true},
+  email: {type: String, required: true},
+  password: {type: String, required: false, minlength: 6},
+}, {timestamps: true} )
 
-    fullName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
-    },
-
-    passwordHash: {
-      type: String,
-      select: false,
-    },
-
-    avatarUrl: {
-      type: String,
-      default: "",
-    },
-  },
-  { timestamps: true }
-);
-
-userSchema.set("toJSON", {
-  transform: (_doc, ret) => {
-    delete ret.passwordHash;
+UserSchema.set("toJSON", {
+  transform: (doc,ret) =>{
+    delete ret.password;
     return ret;
-  },
-});
+  }
+})
 
-const User = mongoose.model<IUser>("User", userSchema);
-
-export default User;
+export const User = model<IUser>("User", UserSchema);
