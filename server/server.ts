@@ -3,12 +3,15 @@ import express, { Request, Response } from 'express';
 import cors from "cors";
 import connectDB from "./config/db.js";
 import authRouter from "./routes/authRoutes.js";
+import passport from "passport";
+import "./config/passport.js"
 
 const app = express();
 
 await connectDB()
 
 app.use(cors())
+app.use(passport.initialize())
 app.use(express.json());
 
 const port = process.env.PORT || 5000;

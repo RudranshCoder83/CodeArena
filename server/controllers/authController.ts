@@ -102,3 +102,20 @@ export const getMe = async (req: Request, res: Response): Promise<void> => {
         res.status(400).json({ message: error.message })
     }
 }
+
+// GET /api/auth/google/callback
+export const googleCallback = async (req: Request, res: Response): Promise<void> => {
+  try {
+    if (!req.user) {
+      res.redirect(`${process.env.CLIENT_URL}/login?error=google_failed`);
+      return;
+    }
+
+    const token = generateToken(req.user._id.toString());
+
+    res.redirect(`${process.env.CLIENT_URL}/auth/success?token=${token}`);
+  } catch (error) {
+    console.log(error);
+    res.redirect(`${process.env.CLIENT_URL}/login?error=google_failed`);
+  }
+};
