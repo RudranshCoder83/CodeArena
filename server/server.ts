@@ -10,7 +10,7 @@ const app = express();
 
 await connectDB()
 
-app.use(cors())
+app.use(cors({ origin: process.env.CLIENT_URL }))
 app.use(passport.initialize())
 app.use(express.json());
 
