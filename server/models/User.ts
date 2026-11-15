@@ -3,12 +3,15 @@ import { Document, model, Schema } from "mongoose";
 export interface IUser extends Document {
   username: string;
   password?: string;
-  googleId: string;
-  avatarUrl: string
+  googleId?: string;
+  avatarUrl?: string
   authProvider: "local" | "google";
   email: string;
   createdAt: Date;
   updatedAt: Date;
+  rating: number;
+  losses: number;
+  wins: number;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -19,6 +22,9 @@ const UserSchema = new Schema<IUser>(
     googleId: { type: String, unique: true, sparse: true },
     avatarUrl: { type: String, default: "" },
     authProvider: { type: String, enum: ["local", "google"], default: "local" },
+    rating: {type: Number, required: true, default: 1200},
+    losses: {type: Number, required: true, default: 0},
+    wins: {type: Number, required: true, default: 0}
   },
   { timestamps: true }
 );
