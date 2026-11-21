@@ -1,7 +1,12 @@
 import { ArrowIcon } from "../Components/Icons";
 import CodeWindow from "../Components/CodeWindow";
+import { useAppContext } from "../Components/../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
+  const { user, loading, setAuthModalOpen } = useAppContext();
+  const navigate = useNavigate();
+  const handleCTA = () => { if (loading) return; if (user) navigate("/dashboard"); else setAuthModalOpen(true); };
   return (
     // min-h-[820px] ko min-h-[700px] kiya, aur pt-[175px] ko pt-[120px] kiya taaki upar shift ho jaye
     <section className="relative min-h-[760px] overflow-visible pt-[130px] max-w-[1180px] w-[calc(100%-48px)] mx-auto lg:pt-[160px]">
@@ -20,7 +25,7 @@ export default function HeroSection() {
           Matchmake in real-time. Solve algorithmic challenges. Execute your C++ code instantly. Climb the global Elo leaderboard.
         </p>
         <div className="flex items-center gap-[25px] mt-[34px]">
-          <button className="bg-[#d4ff24] text-[#080b07] min-h-[58px] px-6 inline-flex items-center justify-center gap-[38px] font-['JetBrains_Mono',monospace] font-bold text-[12px] tracking-[0.05em] shadow-[7px_7px_0_rgba(21,88,201,0.8),0_0_30px_rgba(212,255,36,0.12)] hover:-translate-y-[3px] hover:-translate-x-[3px] hover:shadow-[11px_11px_0_rgba(21,88,201,0.9),0_0_40px_rgba(212,255,36,0.25)] transition-all">
+          <button onClick={handleCTA} className="bg-[#d4ff24] text-[#080b07] min-h-[58px] px-6 inline-flex items-center justify-center gap-[38px] font-['JetBrains_Mono',monospace] font-bold text-[12px] tracking-[0.05em] shadow-[7px_7px_0_rgba(21,88,201,0.8),0_0_30px_rgba(212,255,36,0.12)] hover:-translate-y-[3px] hover:-translate-x-[3px] hover:shadow-[11px_11px_0_rgba(21,88,201,0.9),0_0_40px_rgba(212,255,36,0.25)] transition-all">
             ENTER THE ARENA <ArrowIcon className="w-4" />
           </button>
           <span className="flex items-center gap-2 text-[#abb3c2] font-['JetBrains_Mono',monospace] font-medium text-[9px] tracking-[0.08em]">

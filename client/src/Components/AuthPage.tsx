@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowIcon } from "./Icons";
 import { useAppContext } from "../Context/AuthContext";
 import toast from "react-hot-toast";
 
 export default function AuthModal() {
   const { isAuthModalOpen, setAuthModalOpen, login, register } = useAppContext();
+  const navigate = useNavigate();
 
   const [isLoginTab, setIsLoginTab] = useState(true);
   const [username, setUsername] = useState("");
@@ -47,6 +49,7 @@ export default function AuthModal() {
     setFormLoading(false);
     if (success) {
       handleClose();
+      navigate("/dashboard");
     }
   };
 
