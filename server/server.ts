@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import authRouter from "./routes/authRoutes.js";
 import passport from "passport";
 import "./config/passport.js"
+import userRouter from "./routes/userRoutes.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use("/api/auth", authRouter)
+app.use("/api/user", userRouter)
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
