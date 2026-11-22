@@ -7,6 +7,8 @@ import passport from "passport";
 import "./config/passport.js"
 import userRouter from "./routes/userRoutes.js";
 import matchRouter from "./routes/matchRoutes.js";
+import {questions}  from "./utils/problem.js"
+
 
 const app = express();
 
@@ -29,3 +31,4 @@ app.use("/api/match", matchRouter)
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
+console.log(questions.length); 
