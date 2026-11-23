@@ -2,8 +2,6 @@ import { NextFunction, Response, Request } from "express";
 import jwt from "jsonwebtoken";
 import { User, IUser } from "../models/User.js";
 
-
-
 export const protect = async ( req: Request, res: Response, next: NextFunction): Promise<void> => {
   const authHeader = req.headers.authorization;
 
